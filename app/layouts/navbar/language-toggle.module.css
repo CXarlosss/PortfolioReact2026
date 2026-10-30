@@ -1,0 +1,16 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle[data-mobile='true'] {
+  margin-top: var(--space2X);
+}

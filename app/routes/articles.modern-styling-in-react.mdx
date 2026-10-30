@@ -1,0 +1,69 @@
+---
+title: "Probablemente no necesites CSS-in-JS"
+abstract: "El CSS nativo ha mejorado muchísimo. Aquí tienes un par de técnicas para estilizar dinámicamente componentes de React usando variables CSS (Custom Properties)."
+date: '2022-05-01'
+banner: /static/modern-styling-in-react-banner.jpg
+featured: false
+---
+
+## El estado actual del CSS
+
+Cuando probé por primera vez librerías de CSS-in-JS como Styled Components y Emotion, me encantó la posibilidad de pasar valores dinámicos y estados directamente a los estilos. Sin embargo, estas librerías añadían mucha complejidad, impacto en el rendimiento y ruido al código de los componentes.
+
+Hoy en día, las **CSS Custom Properties** (Variables CSS) tienen un soporte universal en los navegadores y resuelven el mismo problema de una forma mucho más elegante.
+
+## La solución: CSS Nativo
+
+En lugar de crear componentes súper complejos llenos de funciones, podemos simplemente pasar las variables CSS directamente en los estilos en línea de React, y dejar que el archivo CSS tradicional haga la magia.
+
+```jsx
+// Solo pasamos el valor necesario a través del inline-style
+function Button({ offset, children }) {
+  return (
+    <button className="button" style={{ '--offset': `${offset}px` }}>
+      {children}
+    </button>
+  );
+}
+```
+
+```css
+/* Nuestro CSS maneja la variable limpiamente */
+.button {
+  border: 0;
+  padding: 8px 12px;
+  background-color: whitesmoke;
+  transform: translate3d(0, var(--offset), 0);
+}
+```
+
+### Manejando Estados
+
+Para los distintos estados (como un botón primario, deshabilitado, o de diferente tamaño), la mejor manera de estilar sin librerías externas es usando atributos `data-*`.
+
+```jsx
+function Button({ size, primary, children }) {
+  return (
+    <button className="button" data-size={size} data-primary={primary}>
+      {children}
+    </button>
+  );
+}
+```
+
+```css
+.button {
+  background-color: whitesmoke;
+  height: 40px;
+
+  &[data-primary='true'] {
+    background-color: var(--colorPrimary);
+  }
+
+  &[data-size='large'] {
+    height: 60px;
+  }
+}
+```
+
+De esta forma, mantenemos el CSS separado, limpio y con soporte para nuevas funcionalidades nativas como anidamiento (nesting) y media queries personalizadas, **sin necesidad de añadir pesadas librerías de JS**.

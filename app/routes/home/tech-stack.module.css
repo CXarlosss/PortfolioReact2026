@@ -1,0 +1,125 @@
+.techStack {
+  padding-block: var(--space3XL);
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+}
+
+.title {
+  margin-bottom: var(--space2XL);
+  text-align: center;
+  color: var(--colorTextBody);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 4rem;
+  width: 100%;
+  /* Gradient masks for fading edges */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.marqueeContent {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 4rem;
+  animation: scroll 25s linear infinite;
+  align-items: center;
+}
+
+/* Pause animation on hover */
+.marquee:hover .marqueeContent {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 4rem));
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  /* Increase padding to create a larger, stable hover area */
+  padding: 0.5rem;
+  transition: transform 0.3s var(--bezierFastoutSlowin);
+}
+
+.icon {
+  background-color: color-mix(in lab, var(--text) 70%, transparent);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  width: 64px;
+  height: 64px;
+  transition: background-color 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+}
+
+.item:hover .icon {
+  background-color: #00e5ff; /* Sky blue */
+  filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.6));
+  transform: scale(1.15);
+}
+
+.label {
+  font-size: 0.8rem;
+  color: color-mix(in lab, var(--text) 50%, transparent);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.4s ease;
+}
+
+.item:hover .label {
+  opacity: 1;
+  color: #00e5ff; /* Sky blue */
+}
+
+@media (max-width: 768px) {
+  .icon {
+    width: 48px;
+    height: 48px;
+  }
+  .marquee {
+    gap: 3rem;
+  }
+  .marqueeContent {
+    gap: 3rem;
+  }
+}

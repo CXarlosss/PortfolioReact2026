@@ -1,0 +1,130 @@
+.experience {
+  padding-block: var(--space3XL);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  height: 100%;
+  width: 2px;
+  background: var(--colorPrimary);
+  opacity: 0.3;
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 4rem;
+  padding-left: 4rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timelineItem[data-visible='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timelineItem::before {
+  content: '';
+  position: absolute;
+  left: 0.65rem;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  background: var(--background);
+  border: 2px solid var(--colorPrimary);
+  border-radius: 50%;
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.timelineItem:hover::before {
+  background: var(--colorPrimary);
+  box-shadow: 0 0 10px var(--colorPrimary);
+}
+
+.date {
+  font-size: 0.875rem;
+  color: var(--colorPrimary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.title {
+  margin-bottom: 0.25rem;
+  color: var(--colorTextTitle);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.timelineItem:hover .title {
+  color: #00e5ff;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.company {
+  font-size: 1rem;
+  color: var(--colorTextLight);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.description {
+  color: var(--colorTextBody);
+  line-height: 1.6;
+}
+
+.cvContainer {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timelineItem {
+    width: 50%;
+    padding-left: 0;
+    padding-right: 3rem;
+  }
+
+  .timelineItem:nth-child(even) {
+    margin-left: auto;
+    padding-left: 3rem;
+    padding-right: 0;
+  }
+
+  .timelineItem::before {
+    left: 100%;
+    transform: translateX(-50%);
+  }
+
+  .timelineItem:nth-child(even)::before {
+    left: 0;
+    transform: translateX(-50%);
+  }
+
+  .timelineItem:nth-child(odd) {
+    text-align: right;
+  }
+}
